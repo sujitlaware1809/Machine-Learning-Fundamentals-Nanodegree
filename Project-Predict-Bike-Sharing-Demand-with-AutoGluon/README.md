@@ -38,13 +38,13 @@ If given more time, I will spend more time on the first model, the baseline one 
 
 TODO: Replace the image below with your own.
 
-![model_train_score.png](img/model_train_score.png)
+![model_train_score.png](https://i.postimg.cc/8czRCtj6/model-train-score.png)
 
 ### Create a line plot showing the top kaggle score for the three (or more) prediction submissions during the project.
 
 TODO: Replace the image below with your own.
 
-![model_test_score.png](img/model_test_score.png)
+![model_test_score.png](https://i.postimg.cc/dQNdBRh5/model-test-score.png)
 
 ## Summary
 
