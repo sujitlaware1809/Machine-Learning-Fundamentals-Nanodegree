@@ -1,61 +1,53 @@
-# Predict Bike Sharing Demand with AutoGluon
+# Report: Predict Bike Sharing Demand with AutoGluon Solution
+This project focused on predicting bike sharing demand using AutoGluon within the AWS SageMaker Studio environment. We explored the influence of various factors on model performance through experimentation with three different models, all evaluated on the Kaggle platform.
 
-## Introduction to AWS Machine Learning Final Project
+#### NAME HERE
+Sujit Laware
 
-## Overview
-In this project, students will apply the knowledge and methods they learned in the Introduction to Machine Learning course to compete in a Kaggle competition using the AutoGluon library.
+## Initial Training
 
-Students will create a Kaggle account if they do not already have one, download the Bike Sharing Demand dataset, and train a model using AutoGluon. They will then submit their initial results for a ranking.
+### What did you realize when you tried to submit your predictions? What changes were needed to the output of the predictor to submit your results?
+When the predictions were submitted to kaggle, they were rejected each time they contain negative value. So we needed to check negative value, and replace them with zero.
 
-After they complete the first workflow, they will iterate on the process by trying to improve their score. This will be accomplished by adding more features to the dataset and tuning some of the hyperparameters available with AutoGluon.
+### What was the top ranked model that performed?
+The top ranked model was the first one: it was trained using the default parameters of AutoGluon and got a score of 1.8 from Kaggle.
 
-Finally they will submit all their work and write a report detailing which methods provided the best score improvement and why. A template of the report can be found [here](report-template.md).
+## Exploratory data analysis and feature creation
+### What did the exploratory analysis find and how did you add additional features?
+EDA showed us the distribution of the numerical features, which allowed us to spot the skew in windspeed, registered, casual and count. Another action we did take is to engineer new features (year, month, day, hour) based on the feature datetime, in order to try improving our model results.
 
-To meet specifications, the project will require at least these files:
-* Jupyter notebook with code run to completion
-* HTML export of the jupyter notebbook
-* Markdown or PDF file of the report
+### How much better did your model preform after adding additional features and why do you think that is?
+After having added our new features (year, month, day, hour) and removed the feature datetime (since its information is already conveyed in the engineered features), the new model kaggle score dropped to 0.47450, againt 1.81618 when the datetime column was used instead of the engineered ones (let us take note of the fact that datetime column is of type datetime).
+So we can infer from this that AutoGluon has the hability to preprocess and engineer datetime features in different ways and select the best one, in order to allow the model to get the best result.
 
-Images or additional files needed to make your notebook or report complete can be also added.
+## Hyper parameter tuning
+### How much better did your model preform after trying different hyper parameters?
+After tuning the model hyper-parameters, the models performance dropped to 1.31230 against 1.81618 when we left the hyper-parameters untouched.
 
-## Getting Started
-* Clone this template repository `git clone git@github.com:udacity/nd009t-c1-intro-to-ml-project-starter.git` into AWS Sagemaker Studio (or local development).
+### If you were given more time with this dataset, where do you think you would spend more time?
+If given more time, I will spend more time on the first model, the baseline one (its hyper-parameters were not tuned, and datetime features were not engineered in the data fed to it). That choice is based on the fact that clearly, AutoGluon is very good at predicting well on our dataset without our intervention, so we should give it more time to train (for e.g., doubling the training duration and observing the results).
 
-<img src="img/sagemaker-studio-git1.png" alt="sagemaker-studio-git1.png" width="500"/>
-<img src="img/sagemaker-studio-git2.png" alt="sagemaker-studio-git2.png" width="500"/>
+### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
+|model|hpo1|hpo2|hpo3|score|
+|--|--|--|--|--|
+|initial|600|best_quality|NaN|1.81618|
+|add_features|600|best_quality|NaN|0.47450|
+|hpo|12x60|best_quality|nn:activation -- dropout_prob; gmb:num_boost_round -- num_leaves; scheduler; searcher|1.31230|
 
-* Proceed with the project within the [jupyter notebook](project-template.ipynb).
-* Visit the [Kaggle Bike Sharing Demand Competition](https://www.kaggle.com/c/bike-sharing-demand) page. There you will see the overall details about the competition including overview, data, code, discussion, leaderboard, and rules. You will primarily be focused on the data and ranking sections.
+### Create a line plot showing the top model score for the three (or more) training runs during the project.
 
-### Dependencies
+TODO: Replace the image below with your own.
 
-```
-Python 3.7
-MXNet 1.8
-Pandas >= 1.2.4
-AutoGluon 0.2.0 
-```
+![model_train_score.png](img/model_train_score.png)
 
-### Installation
-For this project, it is highly recommended to use Sagemaker Studio from the course provided AWS workspace. This will simplify much of the installation needed to get started.
+### Create a line plot showing the top kaggle score for the three (or more) prediction submissions during the project.
 
-For local development, you will need to setup a jupyter lab instance.
-* Follow the [jupyter install](https://jupyter.org/install.html) link for best practices to install and start a jupyter lab instance.
-* If you have a python virtual environment already installed you can just `pip` install it.
-```
-pip install jupyterlab
-```
-* There are also docker containers containing jupyter lab from [Jupyter Docker Stacks](https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html).
+TODO: Replace the image below with your own.
 
-## Project Instructions
+![model_test_score.png](img/model_test_score.png)
 
-1. Create an account with Kaggle.
-2. Download the Kaggle dataset using the kaggle python library.
-3. Train a model using AutoGluon’s Tabular Prediction and submit predictions to Kaggle for ranking.
-4. Use Pandas to do some exploratory analysis and create a new feature, saving new versions of the train and test dataset.
-5. Rerun the model and submit the new predictions for ranking.
-6. Tune at least 3 different hyperparameters from AutoGluon and resubmit predictions to rank higher on Kaggle.
-7. Write up a report on how improvements (or not) were made by either creating additional features or tuning hyperparameters, and why you think one or the other is the best approach to invest more time in.
+## Summary
 
-## License
-[License](LICENSE.txt)
+This report details an exploration of bike-sharing demand prediction using AutoGluon within AWS SageMaker Studio. The project involved training and evaluating models on the Kaggle platform.
+
+
